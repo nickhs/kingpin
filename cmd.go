@@ -33,6 +33,11 @@ func (c *cmdMixin) CmdCompletion(context *ParseContext) []string {
 		}
 	}
 
+	// Don't include the latest arg for better auto-completion
+	if argsSatisfied > 0 {
+		argsSatisfied = argsSatisfied - 1
+	}
+
 	if argsSatisfied < len(c.argGroup.args) {
 		// Since not all args have been satisfied, show options for the current one
 		options = append(options, c.argGroup.args[argsSatisfied].resolveCompletions()...)
